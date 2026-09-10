@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -43,7 +43,135 @@
       background-attachment: fixed;
     }
 
-    /* === BACKGROUND VIDEO & OVERLAYS (GERARCHIA Z-INDEX RIGIDA) === */
+    /* === ENTER SCREEN SCHERMATA NERA INIZIALE === */
+    .enter-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background-color: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .enter-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .enter-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid rgba(168, 85, 247, 0.4);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+      margin-bottom: 24px;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+      }
+      50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
+      }
+    }
+
+    .enter-title {
+      font-family: monospace;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .enter-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* === BARRA DEL VOLUME IN ALTO A DESTRA (MATCH ESATTO SCREENSHOT 2) === */
+    .volume-widget {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 100;
+      background: rgba(18, 12, 28, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 10px 16px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      width: 140px;
+    }
+
+    .volume-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: #8b8098;
+      text-transform: uppercase;
+    }
+
+    .volume-slider-wrap {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .volume-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.18);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .volume-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: none;
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+      cursor: pointer;
+    }
+
+    /* === BACKGROUND VIDEO & OVERLAYS === */
     .video-bg {
       position: fixed;
       inset: 0;
@@ -81,7 +209,7 @@
       transform: rotate(2deg);
     }
 
-    /* === WRAPPER CONTENUTO (Z-INDEX 3) === */
+    /* === WRAPPER CONTENUTO === */
     .wrap {
       position: relative;
       z-index: 3;
@@ -118,7 +246,7 @@
       }
     }
 
-    /* === HEADER PROFILO CON STATUS DOT SOVRAPPOSTO === */
+    /* === HEADER PROFILO === */
     .profile {
       text-align: center;
       margin-bottom: 22px;
@@ -174,7 +302,7 @@
       letter-spacing: 0.2px;
     }
 
-    /* === SOCIAL LINKS (MATCH ESATTO SCREENSHOT: TINTED SQUIRCLE + COLOR-MATCH) === */
+    /* === SOCIAL LINKS === */
     .links {
       display: flex;
       flex-direction: column;
@@ -205,7 +333,6 @@
       transform: translateY(0);
     }
 
-    /* Icon Box */
     .link-icon {
       width: 44px;
       height: 44px;
@@ -221,7 +348,6 @@
       transform: scale(1.06);
     }
 
-    /* Twitch */
     .twitch-icon {
       background: rgba(168, 85, 247, 0.18);
       color: #a855f7;
@@ -234,7 +360,6 @@
       box-shadow: 0 8px 24px -6px rgba(168, 85, 247, 0.3);
     }
 
-    /* Discord */
     .discord-icon {
       background: rgba(88, 101, 242, 0.18);
       color: #5865f2;
@@ -247,7 +372,6 @@
       box-shadow: 0 8px 24px -6px rgba(88, 101, 242, 0.3);
     }
 
-    /* TikTok */
     .tiktok-icon {
       background: rgba(254, 44, 85, 0.18);
       color: #fe2c55;
@@ -260,7 +384,6 @@
       box-shadow: 0 8px 24px -6px rgba(254, 44, 85, 0.3);
     }
 
-    /* Text info */
     .link-info {
       display: flex;
       flex-direction: column;
@@ -281,7 +404,7 @@
       line-height: 1.2;
     }
 
-    /* === EXTRAS BUTTONS (MODALS) === */
+    /* === EXTRAS BUTTONS === */
     .extras {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -342,46 +465,7 @@
       letter-spacing: 0.3px;
     }
 
-    /* === CONTROLLI FISSI IN BASSO === */
-    .sound-btn {
-      position: fixed;
-      right: 18px;
-      bottom: max(18px, env(safe-area-inset-bottom, 18px));
-      z-index: 100;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(18, 12, 28, 0.78);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      color: #ffffff;
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-      transition: all 0.22s ease;
-      outline: none;
-    }
-
-    .sound-btn:hover {
-      transform: scale(1.08);
-      border-color: rgba(192, 132, 252, 0.5);
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
-    }
-
-    .sound-btn:focus-visible {
-      box-shadow: 0 0 0 3px var(--purple-neon);
-    }
-
-    .sound-btn.sound-on {
-      background: rgba(56, 25, 92, 0.88);
-      border-color: var(--purple-neon);
-      box-shadow: 0 0 22px rgba(168, 85, 247, 0.45);
-    }
-
+    /* === COOKIE BUTTON === */
     .cookie-corner {
       position: fixed;
       left: 18px;
@@ -412,36 +496,7 @@
       box-shadow: 0 6px 20px rgba(168, 85, 247, 0.25);
     }
 
-    .cookie-corner:focus-visible {
-      box-shadow: 0 0 0 3px var(--purple-neon);
-    }
-
-    /* === NOTIFICA TOAST STATO AUDIO === */
-    .toast {
-      position: fixed;
-      bottom: max(74px, calc(env(safe-area-inset-bottom, 18px) + 56px));
-      right: 18px;
-      z-index: 105;
-      padding: 8px 14px;
-      border-radius: 12px;
-      background: rgba(22, 14, 35, 0.92);
-      border: 1px solid rgba(192, 132, 252, 0.25);
-      color: #f3e8ff;
-      font-size: 12px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-      pointer-events: none;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* === MODALI ACCESSIBILI E REATTIVE === */
+    /* === MODALI === */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -527,10 +582,6 @@
       transform: scale(1.05);
     }
 
-    .close-btn:focus-visible {
-      box-shadow: 0 0 0 2px var(--purple-neon);
-    }
-
     .spec-grid {
       display: grid;
       gap: 10px;
@@ -545,11 +596,6 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      transition: border-color 0.18s ease;
-    }
-
-    .spec-item:hover {
-      border-color: rgba(192, 132, 252, 0.3);
     }
 
     .spec-label {
@@ -567,7 +613,6 @@
       text-align: right;
     }
 
-    /* Preferenze Cookie */
     .cookie-text {
       font-size: 13px;
       line-height: 1.6;
@@ -599,11 +644,6 @@
       color: #e9d5ff;
     }
 
-    .cookie-btn.secondary:hover {
-      background: rgba(255, 255, 255, 0.14);
-      color: #ffffff;
-    }
-
     .cookie-btn.primary {
       background: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);
       border: 1px solid rgba(192, 132, 252, 0.4);
@@ -611,12 +651,6 @@
       box-shadow: 0 4px 16px rgba(168, 85, 247, 0.35);
     }
 
-    .cookie-btn.primary:hover {
-      background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);
-      transform: translateY(-1px);
-    }
-
-    /* === REFINEMENT RESPONSIVE === */
     @media (max-width: 440px) {
       .wrap {
         padding: 36px 14px 80px;
@@ -624,46 +658,38 @@
       .card {
         padding: 26px 18px;
       }
-      .avatar {
-        width: 96px;
-        height: 96px;
-      }
-      h1 {
-        font-size: 24px;
-      }
-      .extras {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-      }
-      .extra-btn {
-        padding: 10px 8px;
-        font-size: 12px;
-      }
-      .spec-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-      }
-      .spec-value {
-        text-align: left;
-      }
-      .sound-btn {
+      .volume-widget {
+        top: 14px;
         right: 14px;
-      }
-      .cookie-corner {
-        left: 14px;
+        width: 120px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- BACKGROUND VIDEO (Z-INDEX 0) -->
+  <!-- SCHERMATA NERA INIZIALE (ENTRATA CON AUDIO AUTOMATICO AL CLICK) -->
+  <div id="enterOverlay" class="enter-overlay" onclick="enterSite()">
+    <div class="enter-circle"></div>
+    <div class="enter-title">click to enter...</div>
+    <div class="enter-sub">
+      <span>🔊</span> audio attivo
+    </div>
+  </div>
+
+  <!-- BARRA VOLUME IN ALTO A DESTRA -->
+  <div class="volume-widget">
+    <span class="volume-label">VOLUME</span>
+    <div class="volume-slider-wrap">
+      <input type="range" id="volumeRange" class="volume-slider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+  <!-- BACKGROUND VIDEO -->
   <video
     id="bgVideo"
     class="video-bg loading"
     autoplay
-    muted
     loop
     playsinline
     preload="auto"
@@ -672,15 +698,15 @@
     <source src="assets/background.mp4" type="video/mp4">
   </video>
 
-  <!-- BACKGROUND OVERLAYS (Z-INDEX 1 & 2) -->
+  <!-- BACKGROUND OVERLAYS -->
   <div class="video-overlay" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- MAIN VIEWPORT CONTENT (Z-INDEX 3) -->
+  <!-- MAIN VIEWPORT CONTENT -->
   <main class="wrap">
     <section class="card">
       
-      <!-- PROFILE HEADER (AVATAR CON STATUS DOT SOVRAPPOSTO) -->
+      <!-- PROFILE HEADER -->
       <header class="profile">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/avatar.png?v=3" alt="Avatar di auramen_" width="106" height="106">
@@ -690,7 +716,7 @@
         <p class="subtitle">nel chilling</p>
       </header>
 
-      <!-- SOCIAL LINKS (MATCH ESATTO SCREENSHOT: TINTED SQUIRCLE + COLOR-MATCH) -->
+      <!-- SOCIAL LINKS -->
       <nav class="links" aria-label="Social link">
         <!-- Twitch -->
         <a class="link twitch" href="https://twitch.tv/juliettamos" target="_blank" rel="noopener noreferrer">
@@ -732,7 +758,7 @@
         </a>
       </nav>
 
-      <!-- EXTRAS BUTTONS (MODALS) -->
+      <!-- EXTRAS BUTTONS -->
       <div class="extras">
         <button class="extra-btn" type="button" onclick="openModal('pcModal')" aria-haspopup="dialog" aria-controls="pcModal">
           <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
@@ -819,7 +845,7 @@
     </div>
   </div>
 
-  <!-- PULSANTE DISCRETO COOKIE (IN BASSO A SINISTRA) -->
+  <!-- COOKIE BUTTON -->
   <button
     id="cookieCorner"
     class="cookie-corner"
@@ -830,95 +856,29 @@
     🍪 Cookie
   </button>
 
-  <!-- PULSANTE AUDIO (IN BASSO A DESTRA) -->
-  <button
-    id="soundBtn"
-    class="sound-btn"
-    type="button"
-    aria-label="Attiva audio"
-    title="Attiva audio"
-  >
-    🔇
-  </button>
-
-  <!-- NOTIFICA TOAST STATO AUDIO -->
-  <div id="audioToast" class="toast" role="status" aria-live="polite"></div>
-
   <!-- SCRIPT -->
   <script>
-    /* ==========================================================================
-       ROBUST VIDEO & AUDIO CONTROLLER
-       ========================================================================== */
     const bgVideo = document.getElementById("bgVideo");
-    const soundBtn = document.getElementById("soundBtn");
-    const audioToast = document.getElementById("audioToast");
-    let toastTimer = null;
+    const enterOverlay = document.getElementById("enterOverlay");
+    const volumeRange = document.getElementById("volumeRange");
 
-    function showToast(msg, duration = 2200) {
-      if (!audioToast) return;
-      clearTimeout(toastTimer);
-      audioToast.textContent = msg;
-      audioToast.classList.add("show");
-      toastTimer = setTimeout(() => {
-        audioToast.classList.remove("show");
-      }, duration);
+    // Entrata e riproduzione audio immediata al primo click
+    function enterSite() {
+      enterOverlay.classList.add("hidden");
+      bgVideo.muted = false;
+      bgVideo.volume = parseFloat(volumeRange.value);
+      bgVideo.play().catch(err => console.warn("Errore play video:", err));
     }
 
-    // Inizializzazione autoplay del video (Muted per policy browser)
-    async function startBackgroundVideo() {
-      try {
+    // Regolazione volume in tempo reale
+    volumeRange.addEventListener("input", (e) => {
+      const vol = parseFloat(e.target.value);
+      bgVideo.volume = vol;
+      if (vol === 0) {
         bgVideo.muted = true;
-        const playPromise = bgVideo.play();
-        if (playPromise !== undefined) {
-          await playPromise;
-        }
-        bgVideo.classList.remove("loading");
-      } catch (err) {
-        console.warn("Autoplay muted bloccato dal browser o risparmio energetico:", err);
-        bgVideo.classList.remove("loading");
+      } else {
+        bgVideo.muted = false;
       }
-    }
-
-    // Toggle audio robusto con gestione errori e feedback utente
-    async function toggleAudio() {
-      try {
-        if (bgVideo.muted) {
-          bgVideo.muted = false;
-          bgVideo.volume = 1;
-
-          const playPromise = bgVideo.play();
-          if (playPromise !== undefined) {
-            await playPromise;
-          }
-
-          soundBtn.textContent = "🔊";
-          soundBtn.setAttribute("aria-label", "Disattiva audio");
-          soundBtn.setAttribute("title", "Disattiva audio");
-          soundBtn.classList.add("sound-on");
-          showToast("🔊 Audio attivo");
-        } else {
-          bgVideo.muted = true;
-
-          soundBtn.textContent = "🔇";
-          soundBtn.setAttribute("aria-label", "Attiva audio");
-          soundBtn.setAttribute("title", "Attiva audio");
-          soundBtn.classList.remove("sound-on");
-          showToast("🔇 Audio mutato");
-        }
-      } catch (err) {
-        console.error("Errore durante la riproduzione audio:", err);
-        bgVideo.muted = true;
-        soundBtn.textContent = "⚠️";
-        soundBtn.classList.remove("sound-on");
-        soundBtn.setAttribute("aria-label", "Audio non disponibile");
-        soundBtn.setAttribute("title", "Audio non disponibile");
-        showToast("⚠️ Impossibile riprodurre l'audio");
-      }
-    }
-
-    soundBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleAudio();
     });
 
     bgVideo.addEventListener("canplay", () => {
@@ -928,18 +888,9 @@
     bgVideo.addEventListener("error", (e) => {
       console.warn("Errore caricamento background video:", e);
       bgVideo.style.display = "none";
-      soundBtn.style.display = "none";
     });
 
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", startBackgroundVideo);
-    } else {
-      startBackgroundVideo();
-    }
-
-    /* ==========================================================================
-       GESTIONE MODALI (ACCESSIBILITÀ, TASTO ESC, CLICK ESTERNO)
-       ========================================================================== */
+    /* GESTIONE MODALI */
     function openModal(id) {
       const modal = document.getElementById(id);
       if (!modal) return;
@@ -973,9 +924,7 @@
       }
     });
 
-    /* ==========================================================================
-       PREFERENZE COOKIE DISCRETE (LOCALSTORAGE)
-       ========================================================================== */
+    /* PREFERENZE COOKIE */
     function openCookiePanel() {
       openModal("cookieModal");
     }
@@ -987,7 +936,6 @@
         console.warn("LocalStorage non accessibile:", err);
       }
       closeModal("cookieModal");
-      showToast("Preferenze salvate ✓");
     }
   </script>
 </body>
