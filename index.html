@@ -7,6 +7,11 @@
   <meta name="description" content="auramen_ — nel chilling | Pagina bio ufficiale">
   <title>auramen_ — nel chilling</title>
 
+  <!-- Google Fonts: Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg: #07040d;
@@ -16,7 +21,7 @@
       --purple-glow: rgba(168, 85, 247, 0.4);
       --text: #ffffff;
       --text-muted: #9c91aa;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     * {
@@ -86,7 +91,7 @@
     }
 
     .enter-title {
-      font-family: monospace;
+      font-weight: 600;
       font-size: 18px;
       letter-spacing: 2px;
       color: #ffffff;
@@ -101,30 +106,70 @@
       gap: 6px;
     }
 
-    /* === BARRA DEL VOLUME IN ALTO A DESTRA (MATCH ESATTO SCREENSHOT 2) === */
-    .volume-widget {
+    /* === BOTTONE VOLUME & CONTROLI IN ALTO A DESTRA === */
+    .volume-container {
       position: fixed;
       top: 24px;
       right: 24px;
       z-index: 100;
-      background: rgba(18, 12, 28, 0.82);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 10px 16px;
-      border-radius: 12px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      width: 140px;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .volume-toggle-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(18, 12, 28, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      transition: all 0.2s ease;
+    }
+
+    .volume-toggle-btn:hover {
+      transform: scale(1.08);
+      border-color: rgba(168, 85, 247, 0.5);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    }
+
+    .volume-widget {
+      background: rgba(18, 12, 28, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 12px 16px;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      width: 150px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .volume-widget.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
 
     .volume-label {
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 1.2px;
-      color: #8b8098;
+      color: #a496b4;
       text-transform: uppercase;
     }
 
@@ -148,11 +193,11 @@
     .volume-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background: #ffffff;
-      box-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.9);
       cursor: pointer;
       transition: transform 0.15s ease;
     }
@@ -162,12 +207,12 @@
     }
 
     .volume-slider::-moz-range-thumb {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background: #ffffff;
       border: none;
-      box-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.9);
       cursor: pointer;
     }
 
@@ -298,7 +343,7 @@
     .subtitle {
       color: #9d91aa;
       font-size: 13.5px;
-      font-weight: 400;
+      font-weight: 500;
       letter-spacing: 0.2px;
     }
 
@@ -463,6 +508,7 @@
       font-size: 11px;
       margin-top: 22px;
       letter-spacing: 0.3px;
+      font-weight: 500;
     }
 
     /* === COOKIE BUTTON === */
@@ -479,7 +525,7 @@
       -webkit-backdrop-filter: blur(14px);
       color: #bfaecf;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -601,7 +647,7 @@
     .spec-label {
       font-size: 12px;
       color: #a496b4;
-      font-weight: 500;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -658,17 +704,16 @@
       .card {
         padding: 26px 18px;
       }
-      .volume-widget {
-        top: 14px;
-        right: 14px;
-        width: 120px;
+      .volume-container {
+        top: 16px;
+        right: 16px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- SCHERMATA NERA INIZIALE (ENTRATA CON AUDIO AUTOMATICO AL CLICK) -->
+  <!-- SCHERMATA NERA INIZIALE -->
   <div id="enterOverlay" class="enter-overlay" onclick="enterSite()">
     <div class="enter-circle"></div>
     <div class="enter-title">click to enter...</div>
@@ -677,11 +722,19 @@
     </div>
   </div>
 
-  <!-- BARRA VOLUME IN ALTO A DESTRA -->
-  <div class="volume-widget">
-    <span class="volume-label">VOLUME</span>
-    <div class="volume-slider-wrap">
-      <input type="range" id="volumeRange" class="volume-slider" min="0" max="1" step="0.01" value="1">
+  <!-- BOTTONE VOLUME E SLIDER POPUP (IN ALTO A DESTRA) -->
+  <div class="volume-container">
+    <button id="volumeToggleBtn" class="volume-toggle-btn" type="button" onclick="toggleVolumeWidget()" aria-label="Audio controls">
+      <svg id="volumeIcon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+      </svg>
+    </button>
+
+    <div id="volumeWidget" class="volume-widget">
+      <span class="volume-label">VOLUME</span>
+      <div class="volume-slider-wrap">
+        <input type="range" id="volumeRange" class="volume-slider" min="0" max="1" step="0.01" value="1">
+      </div>
     </div>
   </div>
 
@@ -861,6 +914,7 @@
     const bgVideo = document.getElementById("bgVideo");
     const enterOverlay = document.getElementById("enterOverlay");
     const volumeRange = document.getElementById("volumeRange");
+    const volumeWidget = document.getElementById("volumeWidget");
 
     // Entrata e riproduzione audio immediata al primo click
     function enterSite() {
@@ -870,15 +924,16 @@
       bgVideo.play().catch(err => console.warn("Errore play video:", err));
     }
 
+    // Toggle comparsa/scomparsa del widget volume
+    function toggleVolumeWidget() {
+      volumeWidget.classList.toggle("visible");
+    }
+
     // Regolazione volume in tempo reale
     volumeRange.addEventListener("input", (e) => {
       const vol = parseFloat(e.target.value);
       bgVideo.volume = vol;
-      if (vol === 0) {
-        bgVideo.muted = true;
-      } else {
-        bgVideo.muted = false;
-      }
+      bgVideo.muted = (vol === 0);
     });
 
     bgVideo.addEventListener("canplay", () => {
@@ -888,6 +943,14 @@
     bgVideo.addEventListener("error", (e) => {
       console.warn("Errore caricamento background video:", e);
       bgVideo.style.display = "none";
+    });
+
+    // Chiude il widget del volume se si clicca fuori
+    document.addEventListener("click", (e) => {
+      const volumeContainer = document.querySelector(".volume-container");
+      if (volumeContainer && !volumeContainer.contains(e.target)) {
+        volumeWidget.classList.remove("visible");
+      }
     });
 
     /* GESTIONE MODALI */
