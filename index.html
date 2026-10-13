@@ -750,11 +750,11 @@
     muted
     playsinline
     preload="auto"
-    poster="assets/videos/background-poster.jpg"
+    poster="assets/videos/new-video-poster.jpg"
     aria-hidden="true"
   >
-    <!-- Primo video della playlist (la lista completa è in VIDEO_PLAYLIST, nello script) -->
-    <source src="assets/videos/background.mp4" type="video/mp4">
+    <!-- Unico video di sfondo: la riproduzione continua in loop. -->
+    <source src="assets/videos/new-video.mp4" type="video/mp4">
   </video>
   <!-- BACKGROUND OVERLAYS -->
   <div class="video-overlay" aria-hidden="true"></div>
@@ -924,54 +924,22 @@
       bgVideo.volume = vol;
       bgVideo.muted = (vol === 0);
     });
-    /* === PLAYLIST VIDEO DI SFONDO ===
-       Per aggiungere, sostituire o riordinare i video modifica solo questa lista
-       (file in assets/videos/). Con un solo elemento il video va in loop. */
-    const VIDEO_PLAYLIST = [
-      { src: "assets/videos/background.mp4", poster: "assets/videos/background-poster.jpg" },
-      { src: "assets/videos/new-video.mp4",  poster: "assets/videos/new-video-poster.jpg" }
-    ];
-    let videoIndex = 0;
-    let failedVideos = 0;
-    const preloader = document.createElement("video");
-    preloader.preload = "auto";
-    preloader.muted = true;
-
-    function preloadNext() {
-      if (VIDEO_PLAYLIST.length < 2) return;
-      preloader.src = VIDEO_PLAYLIST[(videoIndex + 1) % VIDEO_PLAYLIST.length].src;
-    }
-    function playVideoAt(index) {
-      videoIndex = index % VIDEO_PLAYLIST.length;
-      const item = VIDEO_PLAYLIST[videoIndex];
-      bgVideo.classList.add("loading");
-      bgVideo.poster = item.poster || "";
-      bgVideo.src = item.src;
-      bgVideo.load();
-      bgVideo.play().catch(err => console.warn("Errore play video:", err));
-    }
-    bgVideo.loop = VIDEO_PLAYLIST.length < 2;
-    bgVideo.addEventListener("ended", () => playVideoAt(videoIndex + 1));
+    /* === VIDEO DI SFONDO SINGOLO ===
+       Il nuovo video è l'unica sorgente attiva: non viene avviata una seconda clip
+       quando termina la prima. Il loop mantiene la riproduzione continua. */
+    bgVideo.loop = true;
     bgVideo.addEventListener("canplay", () => {
-      failedVideos = 0;
       bgVideo.classList.remove("loading");
-      preloadNext();
     });
-    // il video può essere già pronto prima che lo script si registri (autoplay muto)
-    if (bgVideo.readyState >= 3) {
-      bgVideo.classList.remove("loading");
-      preloadNext();
-    }
     bgVideo.addEventListener("error", (e) => {
       console.warn("Errore caricamento background video:", e);
-      failedVideos++;
-      // prova il successivo; se falliscono tutti resta il fondale CSS (fallback)
-      if (VIDEO_PLAYLIST.length > 1 && failedVideos < VIDEO_PLAYLIST.length) {
-        playVideoAt(videoIndex + 1);
-      } else {
-        bgVideo.style.display = "none";
-      }
+      bgVideo.classList.remove("loading");
+      bgVideo.style.display = "none";
     });
+    // Se il browser ha già caricato il video prima della registrazione degli eventi.
+    if (bgVideo.readyState >= 3) {
+      bgVideo.classList.remove("loading");
+    }
     /* === RIFLESSI CHE SEGUONO IL CURSORE (solo mouse, rispetta reduced-motion) === */
     const canTrackPointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
                             !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
